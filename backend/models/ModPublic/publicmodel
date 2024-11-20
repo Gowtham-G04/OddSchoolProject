@@ -1,0 +1,46 @@
+const pool = require('../config/db');
+
+// Function to fetch all schools
+const getSchools = () => {
+  return pool.promise().query('SELECT school_id, name, location, structure_type, ai_prediction FROM schools');
+};
+
+// Function to fetch a specific school by ID
+const getSchoolById = (schoolId) => {
+  return pool.promise().query(
+    'SELECT school_id, name, location, structure_type, ai_prediction, resources FROM schools WHERE school_id = ?',
+    [schoolId]
+  );
+};
+
+// Function to search schools based on a keyword
+const searchSchools = (searchKeyword) => {
+  return pool.promise().query(
+    'SELECT school_id, name, location, structure_type, ai_prediction FROM schools WHERE name LIKE ? OR location LIKE ?',
+    [`%${searchKeyword}%`, `%${searchKeyword}%`]
+  );
+};
+
+// Function for paginated list of schools
+const getPaginatedSchools = (offset, limit) => {
+  return pool.promise().query(
+    'SELECT school_id, name, location, structure_type, ai_prediction FROM schools LIMIT ? OFFSET ?',
+    [limit, offset]
+  );
+};
+
+// Function to fetch resources of a specific school by ID
+const getSchoolResources = (schoolId) => {
+  return pool.promise().query(
+    'SELECT resources FROM schools WHERE school_id = ?',
+    [schoolId]
+  );
+};
+
+module.exports = {
+  getSchools,
+  getSchoolById,
+  searchSchools,
+  getPaginatedSchools,
+  getSchoolResources,
+};
