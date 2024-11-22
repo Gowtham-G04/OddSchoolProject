@@ -1,5 +1,6 @@
-const pool = require('../config/db');
-
+//npconst pool = require('../../config/db');
+const express = require('express');
+const nodeapp = express();
 // Function to fetch all schools
 const getSchools = () => {
   return pool.promise().query('SELECT school_id, name, location, structure_type, ai_prediction FROM schools');

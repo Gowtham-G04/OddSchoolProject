@@ -5,17 +5,17 @@ const cors = require('cors');
 dotenv.config();  // Load environment variables from .env file
 const app = express();
 
-// Import routes
-// const publicRoutes = require('./routes/Rpublic/index');  // Public routes
-// const adminRoutes = require('./routes/Radmin/index');    // Admin routes
+const publicRoutes = require('./routes/Rpublic/index');  // Public routes
+
+
 
 // Middleware
 app.use(cors());  // Enable Cross-Origin Resource Sharing
 app.use(express.json());  // Parse incoming JSON requests
 
 // API Routes
-// app.use('/api/v1/Rpublic', publicRoutes);   // Public routes
-// app.use('/api/v1/Radmin', adminRoutes);    // Admin routes
+
+app.use('/api/v1/Rpublic', publicRoutes);   // Public routes
 
 // Handle 404 errors for undefined routes
 app.use((req, res, next) => {
